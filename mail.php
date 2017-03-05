@@ -6,73 +6,16 @@ require("PHPMailer/class.smtp.php");
 //https://www.google.com/settings/security/lesssecureapps
 //http://phpmailer.worxware.com/
 
-function send($email,$Nome,$message,$assunto)
+function sendgmail($email,$Nome,$message)
 {
 	$mail = new PHPMailer() ;
-
-	$body = '<table width="537" height="662" border="1">
-  <tbody>
-    <tr>
-      <td width="253" height="94">Buenas tardes señor '.$Nome.'</td>
-      <td width="557">'.$message.'</td>
-    </tr>
-    <tr>
-      <td colspan="2"><img src="http://www.comolohicieron.com.mx/wp-content/uploads/2015/03/Screen-Shot-2015-03-29-at-3.36.49-PM-816x497.png"></td>
-    </tr>
-  </tbody>
-</table>';
-				 				 
-		$body .= "";
-
-		$mail->IsSMTP(); 
-
-		//Sustituye (ServidorDeemailSMTP)  por el host de tu servidor de email SMTP
-		$mail->Host = "smtp.gmail.com";
-		$mail->Port       = 587;  
-		$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
-		
-		//Sustituye  ( CuentaDeEnvio )  por la cuenta desde la que deseas enviar por ejem. prueba@domitienda.com  
-		$mail->From     = "abreu.victorrr@gmail.com";
-		$mail->FromName = "Administrador";
-		$mail->Subject  = "Olá, mensagem de teste.";
-		$mail->AltBody  = "Ler"; 
-		$mail->MsgHTML($body);
-		$headers = "Content-type: text/html; charset=iso-8859-1\r\n";
-
-		// Sustituye  (CuentaDestino )  por la cuenta a la que deseas enviar por ejem. usuario@destino.com  
-		$mail->AddAddress($email,'');
-		$mail->SMTPAuth = true;
-
-		// Sustituye (CuentaDeEnvio )  por la misma cuenta que usaste en la parte superior en este caso  prueba@midominio.com  y sustituye (ContraseñaDeEnvio)  por la contraseña que tenga dicha cuenta 
-
-		$mail->Username = "abreu.victorrr@gmail.com";
-		$mail->Password = "94626618Joaoefoda"; 
-
-		if($mail->Send())
-		{
-			//return true;
-			
-			return $body; 
-		}else
-		{
-			return false;
-			die();
-		}
-	}
-
-function sendgmail($email,$Nome,$message,$assunto)
-{
-	$mail = new PHPMailer() ;
-
-	$mail->Body = ' Obrigado por se registrar, abaixo poderá confirmar os dados enviados.<br><br><br>'.
+	$mail->Body = ' Obrigado por nos contatar, abaixo poderá confirmar os dados enviados.<br><br><br>'.
 	                $Nome.
 					'<br><br>'
-	                .$message.
+	                .$email.
 					'<br><br>'
-                    .$assunto; 	
-
+                    .$message; 	
 		$mail->IsSMTP(); 
-
 		//Sustituye (ServidorDeemailSMTP)  por el host de tu servidor de email SMTP
  		$mail->Host = "smtp.gmail.com";		
 		$mail->Port       = 465;  
@@ -87,13 +30,11 @@ function sendgmail($email,$Nome,$message,$assunto)
 		$mail->AltBody  = "Corpo do Texto."; 
 		$mail->CharSet  = "UTF-8";
 		$mail->IsHTML(true);
-
 		// Sustituye  (CuentaDestino )  por la cuenta a la que deseas enviar por ejem. usuario@destino.com  
 		$mail->AddAddress($email, $Nome);
 		$mail->AddCC('ktracaemail@gmail.com', 'Cópia de Segurança', $message);
 		$mail->SMTPAuth = true;
 		
-
 		// Sustituye (CuentaDeEnvio )  por la misma cuenta que usaste en la parte superior en este caso  prueba@midominio.com  y sustituye (ContraseñaDeEnvio)  por la contraseña que tenga dicha cuenta 
 		$mail->Username = "ktracaemail@gmail.com";
 		$mail->Password = "ktraca123"; 
@@ -109,4 +50,4 @@ function sendgmail($email,$Nome,$message,$assunto)
 
 
 
-$html = sendgmail($_POST['email'],$_POST['Nome'],$_POST['assunto'],$_POST['message']);
+$html = sendgmail($_POST['email'],$_POST['Nome'],$_POST['message']);

@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
     <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript" src="js/popup.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/popup.css">
@@ -44,34 +43,8 @@
 				$('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
 			});
 		});
-</script>
-<script type="text/javascript">
-$(function(){
-
-	$('#cadastrarUsuario').submit(function(event){
-	   event.preventDefault();
-	   var formDados = new FormData($(this)[0]);
-
-	   $.ajax({
-		   url:'http://localhost:8090/Elefantax/mail.php',
-		   type:'POST',
-		   data:formDados,
-		   cache:false,
-		   contentType:false,
-		   processData:false,
-		   success:function(data){
-		        $('#resultado').html(data);
-		        alert('Sua Mensagem foi Enviada Com Sucesso!');
-		
-		    },
-		    dataType:'html'		
-		});
-		return false;
-	});
-});
-
-</script>
-<style type="text/css">
+	</script>
+	<style type="text/css">
 	
 	.imgExpande {
 	list-style: none;
@@ -589,33 +562,38 @@ $(function(){
 			      <div class="space"></div>
 			      <p><i class="fa fa-phone fa-fw pull-left fa-2x"></i>Tel:(21) 27126094</p>
 			    </div>
-				
-				
+				<form action="mail.php" method="post">
 				<div class="col-md-8 col-sm-8 marb20">
-					<div class="contact-info">	
-					
-						    <p id="resultado"></p>
-							<form id="cadastrarUsuario" action=""  method="POST">
+					<div class="contact-info">
+							<h3 class="cnt-ttl">Fale conosco</h3>
+							<div class="space"></div>
+                            <div id="sendmessage">Sua mensagem foi enviada, obrigado!</div>
+                            <div id="errormessage"></div>
 							
+							<div class="status alert alert-success" style="display: none"></div>
+							<form action="mail.php" method="post">
 							    <div class="form-group">
-                                    <input type="Nome" name="Nome" class="form-control br-radius-zero" placeholder="Seu nome" data-rule="minlen:4" data-msg="Por favor, no mínimo 4 digitos" />
+                                    <input type="Nome" name="Nome" class="form-control br-radius-zero" id="Nome" placeholder="Seu nome" data-rule="minlen:4" data-msg="Por favor, no mínimo 4 digitos" />
                                     <div class="validation"></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control br-radius-zero" name="email" placeholder="Seu E-mail" data-rule="email" data-msg="Por favor, use um e-mail válido" />
+                                    <input type="email" class="form-control br-radius-zero" name="email" id="email" placeholder="Seu E-mail" data-rule="email" data-msg="Por favor, use um e-mail válido" />
                                     <div class="validation"></div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="message" class="form-control br-radius-zero" name="message" placeholder="Mensagem" data-rule="minlen:10" data-msg="Por favor, escreva algo para nós." />
+                                    <input type="assunto" class="form-control br-radius-zero" name="assunto" id="assunto" placeholder="Assunto" data-rule="minlen:4" data-msg="Por favor, no mínimo 8 digitos no assunto" />
                                     <div class="validation"></div>
                                 </div>
-								<button type="submit" class="btn btn-primary pull-right">Enviar</button>
-					        </form>
+                                <div class="form-group">
+                                    <input type="message" class="form-control br-radius-zero" name="message" id="message" placeholder="Mensagem" data-rule="minlen:10" data-msg="Por favor, escreva algo para nós." />
+                                    <div class="validation"></div>
+                                </div>
+                                
+								<button type="submit" class="btn btn-primary pull-right">Send</button>
+								</div>
+								</form>
 					</div>
 				</div>
-				
-				
-				
 			</div>
 		</div>
 	</section>
@@ -682,9 +660,13 @@ $(function(){
 	</footer>
 	<!--/ footer-->
     
+    <script src="js/jquery.min.js"></script>
     <script src="js/jquery.easing.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/custom.js"></script>
+    <script src="contactform/contactform.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js></script>
+
     
   </body>
 </html>
